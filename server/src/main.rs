@@ -4,11 +4,9 @@ use tokio::net::TcpListener;
 
 #[tokio::main]
 async fn main() {
-    // pass incoming GET requests on "/hello-world" to "hello_world" handler.
     let app = Router::new().route("/hello-world", get(hello_world));
 
-    // write address like this to not make typos
-    let addr = SocketAddr::from(([127, 0, 0, 1], 3000));
+    let addr = SocketAddr::from(([0, 0, 0, 0], 3000));
 
     let listener = TcpListener::bind(addr).await.unwrap();
     axum::serve(listener, app.into_make_service())
